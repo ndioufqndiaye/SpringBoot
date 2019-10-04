@@ -1,5 +1,6 @@
 package com.example.springprojet.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -53,6 +54,7 @@ public class Partenaire {
     @Size( max = 10)
     private String status;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy ="partenaire")
     @JsonIgnoreProperties("partenaire")
     private List<User> uses;
@@ -64,7 +66,7 @@ public class Partenaire {
     public void setComptes(List<Compte> comptes) {
         this.comptes = comptes;
     }
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy ="partenaire")
     @JsonIgnoreProperties("partenaire")
     private List<Compte> comptes;

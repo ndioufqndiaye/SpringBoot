@@ -1,5 +1,6 @@
 package com.example.springprojet.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +21,22 @@ public class Depot {
     private int id;
     @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date datedepot;
+    private  int montant;
+
+    @JsonIgnore
+    @JoinColumn(name = "compte_id",referencedColumnName ="id")
+    @ManyToOne(fetch = FetchType.LAZY ,optional = false)
+    @JsonIgnoreProperties("depots")
+    private Compte compte;
+
+    public int getMontant() {
+        return montant;
+    }
+
+    public void setMontant(int montant) {
+        this.montant = montant;
+    }
+
 
 
     public Compte getCompte() {
@@ -30,10 +47,7 @@ public class Depot {
         this.compte = compte;
     }
 
-    @JoinColumn(name = "compte_id",referencedColumnName ="id")
-    @ManyToOne(fetch = FetchType.LAZY ,optional = false)
-    @JsonIgnoreProperties("depots")
-    private Compte compte;
+
 
     public int getId() {
         return id;

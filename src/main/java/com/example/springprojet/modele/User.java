@@ -1,5 +1,6 @@
 package com.example.springprojet.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.NaturalId;
@@ -42,6 +43,7 @@ public class User {
     @Email
     private String email;
 
+    @JsonIgnore
     @NotBlank
     @Size( max = 100)
     private String password;
@@ -75,25 +77,26 @@ public class User {
     private String image_Name;
 
 
-
+    @JsonIgnore
     @JoinColumn(name = "compte_id",referencedColumnName ="id")
     @ManyToOne(fetch = FetchType.LAZY ,optional = false)
     @JsonIgnoreProperties("uses")
     private Compte compte;
 
 
-
+     @JsonIgnore
     @JoinColumn(name = "partenaire_id",referencedColumnName ="id")
     @ManyToOne(fetch = FetchType.LAZY ,optional = false)
     @JsonIgnoreProperties("uses")
     private Partenaire partenaire;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy ="user")
     @JsonIgnoreProperties("user")
     private List<Transaction> transactions;
 
 
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
